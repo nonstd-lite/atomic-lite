@@ -18,11 +18,21 @@
 #define atomic_STRINGIFY(  x )  atomic_STRINGIFY_( x )
 #define atomic_STRINGIFY_( x )  #x
 
-// any-lite configuration:
+// atomic-lite configuration:
 
 #define atomic_ATOMIC_DEFAULT  0
 #define atomic_ATOMIC_NONSTD   1
 #define atomic_ATOMIC_STD      2
+
+// tweak header support:
+
+#if defined(__has_include) && __has_include(<nonstd/atomic.tweak.hpp>)
+# include <nonstd/atomic.tweak.hpp>
+# define atomic_HAVE_TWEAK_HEADER  1
+#else
+# define atomic_HAVE_TWEAK_HEADER  0
+//# pragma message("atomic.hpp: Note: Tweak header not supported.")
+#endif
 
 #if !defined( atomic_CONFIG_SELECT_ATOMIC )
 # define atomic_CONFIG_SELECT_ATOMIC  ( atomic_HAVE_STD_ATOMIC ? atomic_ATOMIC_STD : atomic_ATOMIC_NONSTD )

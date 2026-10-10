@@ -84,4 +84,13 @@ CASE( "atomic: app " "[app]" )
 #endif
 }
 
+CASE( "tweak header: reads tweak header if supported " "[tweak]" )
+{
+#if atomic_HAVE_TWEAK_HEADER
+    EXPECT( ATOMIC_TWEAK_VALUE == 42 );
+#else
+    EXPECT( !!"Tweak header is not available (atomic_HAVE_TWEAK_HEADER: 0)." );
+#endif
+}
+
 // end of file
